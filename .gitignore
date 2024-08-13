@@ -12,4 +12,4 @@ dist/
 build/
 
 # Ignore cache files
-parcel-cache/
+.parcel-cache/

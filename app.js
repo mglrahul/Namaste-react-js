@@ -1,42 +1,39 @@
-// created a server
-// Hot module replacement - HMR
-// file watchers algo in c++
-// bundling
-// minify
-// cleaning our code
-// dev and prod build
-// super fast build algorithm
-// image optimization
-// caching while development
-// file compressions
-// compatible with older version of browsers
-// https on dev - npx parcel index.html --https
-// manage port number of many projects
-// consistent hashing algorithm to cache things up
-// zero configuration
-// transitive dependencies - all the sub dependency of different packages in package.json file
-// 
-
-
-
-
-
-import React from 'react';
+import React from "react";
 import ReactDOM from "react-dom/client";
 
-const heading =  React.createElement("h1", {
-    id: "title"
-}, "Heading 1 from parcel");
+// const heading =  React.createElement("h1", {
+//     id: "title"
+// }, "Heading 1 from parcel");
 
-const heading2 =  React.createElement("h1", {
-    id: "title"
-}, "heading 2");
+const Title = () => (
+  <h1 id="title" key="h2">
+    Namaste React
+  </h1>
+);
 
-const container = React.createElement("div", {
-    id: "container"
-}, [heading, heading2])
+const HeaderComponent = () => {
+  return (
+    <div>
+      {Title()}
+      <HeaderComponent2 />
+      <HeaderComponent3 />
+      <h1>Namaste React functional component</h1>
+      <h2>This is h2 tag</h2>
+    </div>
+  );
+};
 
+const HeaderComponent2 = () => (
+    <h1> this is another h1 tag</h1>
+)
+
+const HeaderComponent3 = () => {
+    return (
+        <div><h1>this is another h1 tag</h1>
+        <h2>this is another h1 tag</h2></div>
+    )
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(container);
+root.render(<HeaderComponent />);
