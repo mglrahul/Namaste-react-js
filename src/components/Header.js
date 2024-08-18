@@ -1,11 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/img/food-villa.png"
 
-const loggedInUser = () => {
-  // getting this from api
-  return false;
-};
+
 
 const Title = () => {
   return (
@@ -21,7 +18,27 @@ const Title = () => {
 };
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(loggedInUser());
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false)
+  }
+
+  useEffect(()=>{
+    const isLoggedIn = localStorage.getItem("isLoggedIn")
+    console.log("loggedInUser", isLoggedIn)
+    setIsLoggedIn(isLoggedIn)
+    // getting this from api
+    // return isLoggedIn;
+  }, [isLoggedIn])
+
+  // const loggedInUser = () => {
+  //   const isLoggedIn = localStorage.getItem("isLoggedIn")
+  //   console.log("loggedInUser", isLoggedIn)
+  //   // getting this from api
+  //   return isLoggedIn;
+  // };
 
   return (
     <div className="header">
@@ -34,13 +51,15 @@ const Header = () => {
           <li><Link to="/cart">Cart</Link></li>
           <li>
             {isLoggedIn ? (
-              <button className="btn" onClick={() => setIsLoggedIn(false)}>
-                Logout
-              </button>
+              <Link onClick={() => logoutHandler()}>Logout</Link>
+              // <button className="btn" onClick={() => setIsLoggedIn(false)}>
+              //   Logout
+              // </button>
             ) : (
-              <button className="btn" onClick={() => setIsLoggedIn(true)}>
-                Login
-              </button>
+              <Link to="/login">Login</Link>
+              // <button className="btn" onClick={() => setIsLoggedIn(true)}>
+                
+              // </button>
             )}
           </li>
         </ul>
