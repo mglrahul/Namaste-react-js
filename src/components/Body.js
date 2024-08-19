@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import { restaurantList } from "../constant";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
+import useOnline from "./utils/useOnline";
 
 const Body = () => {
   const [searchText, setSearchText] = useState("");
@@ -14,7 +15,7 @@ const Body = () => {
     getRestaurant();
   }, []);
 
-  async function getRestaurant() {
+  async function getRestaurant() {  
     const restaurantApiData = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4427365&lng=77.0735617&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
@@ -29,6 +30,12 @@ const Body = () => {
       restaurantData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
+  }
+
+  const isOnline = useOnline();
+
+  if (!isOnline) {
+    return <h1 style={{color: 'red'}}>Offline, Please check your internet connection</h1>
   }
 
   const filterData = (searchText) => {

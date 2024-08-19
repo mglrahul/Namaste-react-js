@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Header from "./components/Header";
@@ -11,7 +11,17 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import Login from "./components/login";
 import Cart from "./components/Cart";
 import Profile from "./components/Profile";
+import Shimmer from "./components/Shimmer";
 
+
+// chunking
+// code splitting
+// dynamic loading
+// lazy loading
+// on demand loading
+// dynamic import
+
+const Instamart = lazy(() => import("./components/Instamart"));
 
 const AppLayout = () => {
   return (
@@ -31,7 +41,7 @@ const AppRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />
+        element: <Body />,
       },
       {
         path: "about",
@@ -40,28 +50,36 @@ const AppRouter = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
-          }
-        ]
+          },
+        ],
       },
       {
         path: "/contact",
-        element: <Contact />
+        element: <Contact />,
       },
       {
         path: "/login",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/cart",
-        element: <Cart />
+        element: <Cart />,
       },
       {
         path: "/restaurant-menu/:resId",
-        element: <RestaurantMenu />
-      }
-    ]
-  }
-])
+        element: <RestaurantMenu />,
+      },
+      {
+        path: "/instamart",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Instamart />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
