@@ -11,7 +11,7 @@ const Title = () => {
         // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSffQb1asscsRL1vnz3gTtK8HRTknd_9GpZmg&s"
         src={Logo}
         alt="logo"
-        className="logo"
+        className="h-28 p-2"
       />
     </Link>
   );
@@ -41,16 +41,16 @@ const Header = () => {
   // };
 
   return (
-    <div className="header">
+    <div className="flex justify-between bg-pink-50 shadow-lg sm:bg-purple-50 md:bg-yellow-50">
       <Title />
       <div className="nav-items">
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About us</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/cart">Cart</Link></li>
-          <li><Link to="/instamart">Instamart</Link></li>
-          <li>
+        <ul className="flex py-10">
+          <li className="px-2"><Link to="/">Home</Link></li>
+          <li className="px-2"><Link to="/about">About us</Link></li>
+          <li className="px-2"><Link to="/contact">Contact</Link></li>
+          <li className="px-2"><Link to="/cart">Cart</Link></li>
+          <li className="px-2"><Link to="/instamart">Instamart</Link></li>
+          <li className="px-2">
             {isLoggedIn ? (
               <Link onClick={() => logoutHandler()}>Logout</Link>
               // <button className="btn" onClick={() => setIsLoggedIn(false)}>
@@ -70,3 +70,4 @@ const Header = () => {
 };
 
 export default Header;
+
