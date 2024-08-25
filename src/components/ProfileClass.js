@@ -1,5 +1,6 @@
 import React from "react";
 import ChildClass from "./ChildClass";
+import UserContext from "./utils/UserContext";
 
 class ProfileClass extends React.Component {
     constructor(props) {
@@ -28,6 +29,9 @@ class ProfileClass extends React.Component {
         return (
             <div className="profileClass">
                 <h1>profileClass page</h1>
+                <UserContext.Consumer>
+                    {({user}) => (<h1>{user.name} - {user.email}</h1>)}
+                </UserContext.Consumer>
                 {/* <h2><img src={this.state.userInfo.avatar_url} alt="avtar" /></h2>
                 <h2>name: {this.state.userInfo.name}</h2>
                 <h2>location: {this.state.userInfo.location}</h2> */}

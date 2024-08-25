@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/img/food-villa.png"
-
-
+import Logo from "../assets/img/food-villa.png";
+import UserContext from "./utils/UserContext";
 
 const Title = () => {
   return (
@@ -40,6 +39,8 @@ const Header = () => {
   //   return isLoggedIn;
   // };
 
+  const {user} = useContext(UserContext);
+
   return (
     <div className="flex justify-between bg-pink-50 shadow-lg sm:bg-purple-50 md:bg-yellow-50">
       <Title />
@@ -50,6 +51,7 @@ const Header = () => {
           <li className="px-2"><Link to="/contact">Contact</Link></li>
           <li className="px-2"><Link to="/cart">Cart</Link></li>
           <li className="px-2"><Link to="/instamart">Instamart</Link></li>
+          <li className="text-red-500">{user.name}</li>
           <li className="px-2">
             {isLoggedIn ? (
               <Link onClick={() => logoutHandler()}>Logout</Link>

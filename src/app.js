@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Header from "./components/Header";
@@ -12,6 +12,7 @@ import Login from "./components/login";
 import Cart from "./components/Cart";
 import Profile from "./components/Profile";
 import Shimmer from "./components/Shimmer";
+import UserContext from "./components/utils/UserContext";
 
 
 // chunking
@@ -24,12 +25,23 @@ import Shimmer from "./components/Shimmer";
 const Instamart = lazy(() => import("./components/Instamart"));
 
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "Rahul Mangal",
+    email: "rahul@gmail.com"
+  })
+
   return (
-    <React.Fragment key="12">
+    <>
+    <UserContext.Provider 
+      value={{
+        user: user,
+        setUser: setUser
+      }}>
       <Header />
       <Outlet />
       <Footer />
-    </React.Fragment>
+      </UserContext.Provider>
+    </>
   );
 };
 
