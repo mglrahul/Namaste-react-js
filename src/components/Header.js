@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/img/food-villa.png";
 import UserContext from "./utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Title = () => {
   return (
@@ -41,6 +42,8 @@ const Header = () => {
 
   const {user} = useContext(UserContext);
 
+  const cartItems = useSelector(store => store.cart.items);
+
   return (
     <div className="flex justify-between bg-pink-50 shadow-lg sm:bg-purple-50 md:bg-yellow-50">
       <Title />
@@ -49,7 +52,7 @@ const Header = () => {
           <li className="px-2"><Link to="/">Home</Link></li>
           <li className="px-2"><Link to="/about">About us</Link></li>
           <li className="px-2"><Link to="/contact">Contact</Link></li>
-          <li className="px-2"><Link to="/cart">Cart</Link></li>
+          <li className="px-2"><Link to="/cart">Cart - {cartItems.length} items</Link></li>
           <li className="px-2"><Link to="/instamart">Instamart</Link></li>
           <li className="text-red-500">{user.name}</li>
           <li className="px-2">

@@ -13,7 +13,8 @@ import Cart from "./components/Cart";
 import Profile from "./components/Profile";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./components/utils/UserContext";
-
+import store from "./components/utils/store";
+import { Provider } from "react-redux";
 
 // chunking
 // code splitting
@@ -27,21 +28,22 @@ const Instamart = lazy(() => import("./components/Instamart"));
 const AppLayout = () => {
   const [user, setUser] = useState({
     name: "Rahul Mangal",
-    email: "rahul@gmail.com"
-  })
+    email: "rahul@gmail.com",
+  });
 
   return (
-    <>
-    <UserContext.Provider 
-      value={{
-        user: user,
-        setUser: setUser
-      }}>
-      <Header />
-      <Outlet />
-      <Footer />
+    <Provider store={store}>
+      <UserContext.Provider
+        value={{
+          user: user,
+          setUser: setUser,
+        }}
+      >
+        <Header />
+        <Outlet />
+        <Footer />
       </UserContext.Provider>
-    </>
+    </Provider>
   );
 };
 
