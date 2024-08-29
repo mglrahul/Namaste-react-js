@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/img/food-villa.png";
+import useOnline from "./utils/useOnline";
 import UserContext from "./utils/UserContext";
 import { useSelector } from "react-redux";
 
@@ -12,6 +13,7 @@ const Title = () => {
         src={Logo}
         alt="logo"
         className="h-28 p-2"
+        data-testid="logo"
       />
     </Link>
   );
@@ -19,6 +21,7 @@ const Title = () => {
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isOnline = useOnline();
 
   const logoutHandler = () => {
     localStorage.removeItem("isLoggedIn");
@@ -49,10 +52,11 @@ const Header = () => {
       <Title />
       <div className="nav-items">
         <ul className="flex py-10">
+          <li><h1 data-testid="online-status">{isOnline ? "✅" : "🔴"}</h1></li>
           <li className="px-2"><Link to="/">Home</Link></li>
           <li className="px-2"><Link to="/about">About us</Link></li>
           <li className="px-2"><Link to="/contact">Contact</Link></li>
-          <li className="px-2"><Link to="/cart">Cart - {cartItems.length} items</Link></li>
+          <li className="px-2"><Link to="/cart" data-testid="cart">Cart - {cartItems.length} items</Link></li>
           <li className="px-2"><Link to="/instamart">Instamart</Link></li>
           <li className="text-red-500">{user.name}</li>
           <li className="px-2">

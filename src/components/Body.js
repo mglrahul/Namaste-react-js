@@ -53,6 +53,7 @@ const Body = () => {
     <>
       <div className="search-container p-5 bg-pink-50 my-5">
         <input
+          data-testid="search-input"
           type="text"
           name="search"
           className="focus:bg-gray-200 p-2 m-2"
@@ -63,7 +64,7 @@ const Body = () => {
             setSearchText(e.target.value);
           }}
         />
-        <button className="search-btn p-2 m-2 bg-purple-900 hover:bg-gray-900 text-white rounded-md" onClick={() => filterData(searchText)}>
+        <button data-testid="search-btn" className="search-btn p-2 m-2 bg-purple-900 hover:bg-gray-900 text-white rounded-md" onClick={() => filterData(searchText)}>
           Search
         </button>
         <input type="text" name="name" value={user.name} onChange={(e)=>{
@@ -80,9 +81,9 @@ const Body = () => {
         }}/>
       </div>
       <div className="flex flex-wrap">
-        {filteredRestaurant.length === 0 ? (
+        {filteredRestaurant.length == 0 ? (
           searchText ? (
-            "No Record found, try something else"
+            <div data-testid="no-record-found">{"No Record found, try something else"}</div>
           ) : (
             <Shimmer key={1}/>
           )

@@ -13,3 +13,6 @@ build/
 
 # Ignore cache files
 .parcel-cache/
+
+# Ignore test coverage folder
+/coverage
