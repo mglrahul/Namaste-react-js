@@ -1,5 +1,6 @@
-import React from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
@@ -7,15 +8,42 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import Login from "./components/login";
+import Cart from "./components/Cart";
+import Profile from "./components/Profile";
+import Shimmer from "./components/Shimmer";
+import UserContext from "./components/utils/UserContext";
+import store from "./components/utils/store";
+import { Provider } from "react-redux";
+
+// chunking
+// code splitting
+// dynamic loading
+// lazy loading
+// on demand loading
+// dynamic import
+
+const Instamart = lazy(() => import("./components/Instamart"));
 
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "Rahul Mangal",
+    email: "rahul@gmail.com",
+  });
+
   return (
-    <React.Fragment key="12">
-      <Header />
-      <Outlet />
-      <Footer />
-    </React.Fragment>
+    <Provider store={store}>
+      <UserContext.Provider
+        value={{
+          user: user,
+          setUser: setUser,
+        }}
+      >
+        <Header />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -27,23 +55,45 @@ const AppRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />
+        element: <Body />,
       },
       {
-        path: "/about",
-        element: <About />
+        path: "about",
+        element: <About />,
+        children: [
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
       },
       {
         path: "/contact",
-        element: <Contact />
+        element: <Contact />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/restaurant-menu/:resId",
-        element: <RestaurantMenu />
-      }
-    ]
-  }
-])
+        element: <RestaurantMenu />,
+      },
+      {
+        path: "/instamart",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Instamart />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
